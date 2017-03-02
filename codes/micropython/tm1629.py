@@ -107,7 +107,7 @@ class TM1629(shift_register.Shift_register):
         self._show_digits(time_string, dots = [1, 3, 5])
 
 
-    def show_time(self, year, month, day, hour, minute, second):
+    def show_time(self, year, month, day, hour, minute, second):        
         time_string = "{0:0>2}".format(hour) + ":" + \
                       "{0:0>2}".format(minute) + ":" + \
                       "{0:0>2}".format(second)  
