@@ -1,5 +1,5 @@
 # coding: utf-8
-
+ 
 
 # WiFi network _________________________
 def wait_for_wifi():
@@ -36,12 +36,9 @@ import ntp_clock
 ntp_clock.Clock(display).run()
 
 # import wf8266t 
-# display = wf8266t.WF8266T()
-# import machine
-# led_pin = machine.Pin(13, machine.Pin.OUT)
-# led_pin.high()
+# display = wf8266t.WF8266T() 
 # import ntp_clock 
-# ntp_clock.Clock(display, led_pin = led_pin).run()
+# ntp_clock.Clock(display, buzzer = display.buzzer).run()
 
  
 

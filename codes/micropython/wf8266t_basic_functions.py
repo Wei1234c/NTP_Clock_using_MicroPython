@@ -1,16 +1,12 @@
 import time
 import machine
-import dht
 import tm1629
 
 
-DHT = dht.DHT11
 NO_SHOW_CODE = [0, 0, 0]
 ALL_SHOW_CODE = [255, 255, 255]
 DISPLAY_INTEGER_DIGIT_COUNT = 5
 DISPLAY_DECIMAL_DIGIT_COUNT = 2
-EXTRA_INFO_DURATION_SECONDS = 2
-SHOW_EXTRA_INFO_ON_SECOND = 30 
 
 DISPLAY_DIGIT_MAP = {0: {0: [{'addr': 192, 'start_bit': 0, 'end_bit': 7, 'shift': 0, 'mask': 255}], 
                          1: [{'addr': 194, 'start_bit': 0, 'end_bit': 7, 'shift': 0, 'mask': 255}], 
@@ -56,14 +52,9 @@ class WF8266T(tm1629.TM1629):
                  clk_pin_id = 14,
                  stb_pin_id = 15, 
                  brightness_level = 3, 
-                 button_pin_id = 0,
-                 buzzer_pin_id = 13,
-                 dht11_pin_id = 12):
+                 button_pin_id = 0):
                  
         self.button = machine.Pin(button_pin_id, machine.Pin.IN)
-        self.buzzer = machine.Pin(buzzer_pin_id, machine.Pin.OUT); self.buzzer.high()
-        self.dht = DHT(machine.Pin(dht11_pin_id))
-        self.adc = machine.ADC(0) 
         
         self.buffer = {'digits': {}, 'bytes': {}} 
         self.no_show_code = NO_SHOW_CODE
@@ -92,8 +83,8 @@ class WF8266T(tm1629.TM1629):
                          lsbfirst = True,
                          brightness_level = brightness_level)     
         
-        self.clear(tm1629.All_SHOW_DIGIT); self.show(); time.sleep(EXTRA_INFO_DURATION_SECONDS)
-        self.show_text("HELLO!"); time.sleep(EXTRA_INFO_DURATION_SECONDS) 
+        self.clear(tm1629.All_SHOW_DIGIT); self.show(); time.sleep(3)
+        self.show_text("HELLO!"); time.sleep(1) 
 
       
     def set_digit_by_index(self, index, value):
@@ -144,39 +135,17 @@ class WF8266T(tm1629.TM1629):
         time_string = "{0:0>2}".format(hour) + ":" + "{0:0>2}".format(minute) + "{0:0>2}".format(second)  
         self._show_digits(time_string)
         
-        self.show_extra(year, month, day, hour, minute, second)
-
-        
-    def show_extra(self, year, month, day, hour, minute, second):
         if self.button.value() == 0:
-            self.show_date(year, month, day, hour, minute, second); time.sleep(EXTRA_INFO_DURATION_SECONDS) 
-            self.show_temperature_humidity()
-            # self.show_lux()
-        if second == SHOW_EXTRA_INFO_ON_SECOND:
-            self.show_temperature_humidity() 
-            
+            self.show_date(year, month, day, hour, minute, second); time.sleep(3) 
+ 
         
     def show_date(self, year, month, day, hour, minute, second):
         time_string = "{0:0>2}".format(month) + "-" + "{0:0>2}".format(day) 
         self._show_digits(time_string)
         
         
-    def show_temperature_humidity(self): 
-        self.dht.measure() 
-        temperature, humidity = self.dht.temperature(), self.dht.humidity() 
-        self._show_digits('Temp:{0:0>2}'.format(temperature)); time.sleep(EXTRA_INFO_DURATION_SECONDS)
-        self._show_digits('Humd:{0:0>2}'.format(humidity)); time.sleep(EXTRA_INFO_DURATION_SECONDS)    
-     
-    
-    # marked, due to out of memory
-    # def show_lux(self): 
-        # lux_percentage = int((self.adc.read() / 1024) * 100) 
-        # self._show_digits('Lux :{0:0>2}'.format(lux_percentage)); time.sleep(EXTRA_INFO_DURATION_SECONDS) 
-              
-              
 # import time
-# import wf8266t
-# ds = wf8266t.WF8266T()
+# import display_tm1629_wf8266t
+# ds = display_tm1629_wf8266t.Display()
 # ds.show_text("AAAAAAAAAA")
-# ds.show_one_byte_data(193, 0x01) 
-# ds.adc.read()
+# ds.show_one_byte_data(193, 0x01)        

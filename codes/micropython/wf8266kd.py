@@ -56,10 +56,7 @@ class WF8266KD(tm1629.TM1629):
             
             
     def show_datetime(self, year, month, day, hour, minute, second):
-        time_string = "{0:0>2}".format(month) + \
-                      "{0:0>2}".format(day) + \
-                      "{0:0>2}".format(hour) +  \
-                      "{0:0>2}".format(minute)
+        time_string = "{0:0>2}".format(month) + "{0:0>2}".format(day) + "{0:0>2}".format(hour) + "{0:0>2}".format(minute)
         self._show_digits(time_string, dots = [1, 3, 5])
         
         

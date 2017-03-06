@@ -6,10 +6,10 @@ import gc
 
 class Clock():
     
-    def __init__(self, display, led_pin = None, led_high_is_on = False):        
+    def __init__(self, display, buzzer = None, led_high_is_on = False):        
         self.adjusted_time_delta = 0
         self.display = display
-        self.led_pin = led_pin if led_pin else led.on_board_led
+        self.buzzer = buzzer if buzzer else led.on_board_led
         self.led_high_is_on = led_high_is_on
         ntp_client.calibrate_time_upython() 
         
@@ -32,10 +32,10 @@ class Clock():
             times_to_signal = hour % 12
             if times_to_signal == 0: times_to_signal = 12
 
-            led.blink(self.led_pin, 
+            led.blink(self.buzzer, 
                       times = times_to_signal - 1, on_seconds = 0.1, off_seconds = 0.9, 
                       high_is_on = self.led_high_is_on)
-            led.blink(self.led_pin, 
+            led.blink(self.buzzer, 
                       times = 1, on_seconds = 0.5, off_seconds = 0.5, 
                       high_is_on = self.led_high_is_on)   
             
