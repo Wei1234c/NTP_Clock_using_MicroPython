@@ -30,16 +30,20 @@ led.blink_on_board_led(times = 2)
 # import ntp_clock 
 # ntp_clock.Clock(display).run()
 
-import wf8266kd
-display = wf8266kd.WF8266KD()
-import ntp_clock 
-ntp_clock.Clock(display).run()
+# import wf8266kd
+# display = wf8266kd.WF8266KD()
+# import ntp_clock 
+# ntp_clock.Clock(display).run()
 
 # import wf8266t 
 # display = wf8266t.WF8266T() 
 # import ntp_clock 
 # ntp_clock.Clock(display, buzzer = display.buzzer).run()
 
+import max_matrices
+display = max_matrices.Matrices()
+import ntp_clock 
+ntp_clock.Clock(display).run()
  
 
 
