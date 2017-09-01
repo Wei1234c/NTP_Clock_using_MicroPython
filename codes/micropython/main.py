@@ -40,12 +40,15 @@ led.blink_on_board_led(times = 2)
 # import ntp_clock 
 # ntp_clock.Clock(display, buzzer = display.buzzer).run()
 
-import max_matrices
-display = max_matrices.Matrices()
+# import max_matrices
+# display = max_matrices.Matrices()
+# import ntp_clock 
+# ntp_clock.Clock(display).run()
+ 
+import qs30_1
+display = qs30_1.QS30_1(columns = 1, intensity = 0)
 import ntp_clock 
 ntp_clock.Clock(display).run()
- 
-
 
 # as MQTT node _______________________
 # import node
