@@ -2,10 +2,9 @@
 
 import machine 
 import ssd1306
-import display
 
 
-class Display(display.Display):
+class Display:
     
     def __init__(self, width = 128, height = 64, scl_pin_id = 5, sda_pin_id = 4, freq = 400000):
         self.i2c = machine.I2C(scl = machine.Pin(scl_pin_id),
@@ -13,7 +12,6 @@ class Display(display.Display):
                                freq = freq)                               
         self.display = ssd1306.SSD1306_I2C(width, height, self.i2c)
         self.show = self.display.show
-        super().__init__()
         
 
     def clear(self):

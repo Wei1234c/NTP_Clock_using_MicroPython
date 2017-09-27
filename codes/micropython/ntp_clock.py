@@ -23,6 +23,9 @@ class Clock():
         
         self._on_hour(hour, minute, second)
         
+        if minute == 59 and second == 0: 
+            ntp_client.calibrate_time_upython()
+        
         
     def _on_hour(self, hour, minute, second): 
         
@@ -37,11 +40,9 @@ class Clock():
                       high_is_on = self.led_high_is_on)
             led.blink(self.buzzer, 
                       times = 1, on_seconds = 0.5, off_seconds = 0.5, 
-                      high_is_on = self.led_high_is_on)   
-            
-            ntp_client.calibrate_time_upython()
-        
-        
+                      high_is_on = self.led_high_is_on)
+                      
+                      
     def adjust_time_delta(self, start_time, end_time, targeted_difference = 1000):
         time_delta = end_time - start_time - targeted_difference
         time_delta = time_delta if 0 < abs(time_delta) < targeted_difference else 0
