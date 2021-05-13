@@ -6,8 +6,11 @@
 # import wifi
 
 import webrepl
+
+
 webrepl.start()
 
 import gc
-gc.collect()
 
+
+gc.collect()
