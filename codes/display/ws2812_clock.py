@@ -54,21 +54,13 @@ class Clock(NeoPixel):
         self.place_element(self.ele_second, 3)
 
 
-    def _get_hour_pixel_index(self, hour, minute = 0):
-        return int(((hour + minute / MINUTES) / HOURS) * self.pixels_count)
-
-
-    def _get_minute_pixel_index(self, minute):
-        return int((minute / MINUTES) * self.pixels_count)
-
-
-    def _get_second_pixel_index(self, second):
-        return int((second / SECONDS) * self.pixels_count)
+    def _get_index(self, numerator, denominator = 60):
+        return int((numerator / denominator) * self.n)
 
 
     def _set_hour_pixels(self, color = COLOR_HOUR_MARK):
         for i in HOUR_MARKS:
-            self[self._get_hour_pixel_index(i)] = color
+            self[self._get_index(i, HOURS)] = color
 
 
     def show(self):
@@ -84,9 +76,13 @@ class Clock(NeoPixel):
         # hour-minute: fill between hour and minute? color and brightness?
         # minute-hour: fill between minute and hour? color and brightness?
 
-        self.move_element(self.ele_hour, self._get_hour_pixel_index(hour, minute))
-        self.move_element(self.ele_minute, self._get_minute_pixel_index(minute))
-        self.move_element(self.ele_second, self._get_second_pixel_index(second))
+        self.remove_element(self.ele_second)
+        self.remove_element(self.ele_minute)
+        self.remove_element(self.ele_hour)
+
+        self.place_element(self.ele_hour, self._get_index(hour + minute / MINUTES, HOURS))
+        self.place_element(self.ele_minute, self._get_index(minute))
+        self.place_element(self.ele_second, self._get_index(second))
         self.show()
 
 
