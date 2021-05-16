@@ -14,6 +14,10 @@ class Clock:
         self.led_high_is_on = led_high_is_on
         ntp_client.calibrate_time_upython()
 
+        # # (year, month, day, weekday, hours, minutes, seconds, subseconds)
+        # import machine
+        # machine.RTC().datetime((2021, 5, 14, 4, 8, 42, 20, 0))
+
 
     def show_current_time(self):
         current_time = time.localtime()

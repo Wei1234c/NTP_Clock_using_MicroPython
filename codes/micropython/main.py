@@ -38,7 +38,7 @@ ntp_clock.Clock(display).run()
 # display = ws2812_clock.Clock(data_pin = pin_np,
 #                              pixels_count = 60,
 #                              start_idx = 30,
-#                              brightness_level = 1)
+#                              bar_mode = True)
 # import ntp_clock
 # ntp_clock.Clock(display).run()
 
