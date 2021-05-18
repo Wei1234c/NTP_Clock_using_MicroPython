@@ -16,7 +16,7 @@ class Clock:
 
         # # (year, month, day, weekday, hours, minutes, seconds, subseconds)
         # import machine
-        # machine.RTC().datetime((2021, 5, 14, 4, 8, 42, 20, 0))
+        # machine.RTC().datetime((2021, 5, 14, 4, 8, 59, 55, 0))
 
 
     def show_current_time(self):

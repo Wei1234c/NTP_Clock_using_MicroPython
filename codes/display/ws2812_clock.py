@@ -57,7 +57,7 @@ class Clock(NeoPixel):
 
 
     def _get_index(self, numerator, denominator = 60):
-        return int((numerator / denominator) * self.n)
+        return int(numerator * self.n / denominator)
 
 
     def _set_hour_pixels(self, color = COLOR_HOUR_MARK):

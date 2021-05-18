@@ -13,8 +13,8 @@ def wait_for_wifi():
         sta_if.active(True)
         # sta_if.connect(SSID, PASSWORD)
         while not sta_if.isconnected():
-            pass			
-	
+            pass
+
     print('Network configuration:', sta_if.ifconfig())
 
 
@@ -34,13 +34,15 @@ ntp_clock.Clock(display).run()
 
 # import machine
 # import ws2812_clock
-# pin_np = machine.Pin(13, machine.Pin.OUT)
+# pin_np = machine.Pin(4, machine.Pin.OUT)
 # display = ws2812_clock.Clock(data_pin = pin_np,
 #                              pixels_count = 60,
-#                              start_idx = 30,
+#                              start_idx = 33,
 #                              bar_mode = True)
 # import ntp_clock
-# ntp_clock.Clock(display).run()
+# ntp_clock.Clock(display,
+#                 buzzer = machine.Pin(5, machine.Pin.OUT),
+#                 led_high_is_on = True).run()
 
 # import wf8266kd
 # display = wf8266kd.WF8266KD()
