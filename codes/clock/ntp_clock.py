@@ -1,7 +1,9 @@
-import time
-import ntp_client
-import led
 import gc
+import time
+
+import led
+
+import ntp_client
 
 
 
@@ -26,27 +28,30 @@ class Clock:
         year, month, day, hour, minute, second, _, _ = current_time
         self.display.show_time(year, month, day, hour, minute, second)
 
-        self._on_hour(hour, minute, second)
+        self._on_hour(hour, minute, second, silent_night = False, day_hours_range = (7, 22))
 
         if minute == 59 and second == 0:
             ntp_client.calibrate_time_upython()
 
 
-    def _on_hour(self, hour, minute, second):
+    def _on_hour(self, hour, minute, second, silent_night = False, day_hours_range = (7, 22)):
+        day_hour_min, day_hour_max = day_hours_range
 
         if minute == second == 0:
             print("\n[Clock: now is {} o'clock]\n".format(hour))
 
-            times_to_signal = hour % 12
-            if times_to_signal == 0:
-                times_to_signal = 12
+            if (silent_night is False) or (day_hour_min <= hour <= day_hour_max):
 
-            led.blink(self.buzzer,
-                      times = times_to_signal - 1, on_seconds = 0.1, off_seconds = 0.9,
-                      high_is_on = self.led_high_is_on)
-            led.blink(self.buzzer,
-                      times = 1, on_seconds = 0.5, off_seconds = 0.5,
-                      high_is_on = self.led_high_is_on)
+                times_to_signal = hour % 12
+                if times_to_signal == 0:
+                    times_to_signal = 12
+
+                led.blink(self.buzzer,
+                          times = times_to_signal - 1, on_seconds = 0.1, off_seconds = 0.9,
+                          high_is_on = self.led_high_is_on)
+                led.blink(self.buzzer,
+                          times = 1, on_seconds = 0.5, off_seconds = 0.5,
+                          high_is_on = self.led_high_is_on)
 
 
     def adjust_time_delta(self, start_time, end_time, targeted_difference = 1000):

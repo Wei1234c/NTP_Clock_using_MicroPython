@@ -40,9 +40,7 @@ ntp_clock.Clock(display).run()
 #                              start_idx = 33,
 #                              bar_mode = True)
 # import ntp_clock
-# ntp_clock.Clock(display,
-#                 buzzer = machine.Pin(5, machine.Pin.OUT),
-#                 led_high_is_on = True).run()
+# ntp_clock.Clock(display).run()
 
 # import wf8266kd
 # display = wf8266kd.WF8266KD()
