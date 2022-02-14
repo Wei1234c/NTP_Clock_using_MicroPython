@@ -26,8 +26,8 @@ class Clock:
         print(current_time)
 
         year, month, day, hour, minute, second, _, _ = current_time
-        self.display.show_time(year, month, day, hour, minute, second)
 
+        self.display.show_time(year, month, day, hour, minute, second)
         self._on_hour(hour, minute, second, silent_night = False, day_hours_range = (7, 22))
 
         if minute == 59 and second == 0:
